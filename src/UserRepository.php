@@ -37,9 +37,9 @@ class UserRepository
     public function getLastSeenUsers(User $actor): array
     {
         $time = Carbon::now()->subMinutes(5);
-        $limit = $this->settings->get('afrux-online-users-widget.max_users', 15);
+        $limit = $this->settings->get('ekumanov-online-users-widget.max_users', 15);
 
-        return $this->cache->remember('afrux-online-users-widget.users', 40, function () use ($actor, $time, $limit) {
+        return $this->cache->remember('ekumanov-online-users-widget.users', 40, function () use ($actor, $time, $limit) {
             return User::query()
                 ->select('id', 'preferences')
                 ->whereVisibleTo($actor)

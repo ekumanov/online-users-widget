@@ -39,7 +39,7 @@ return [
         ->prepareDataForSerialization(LoadForumOnlineUsersRelationship::class),
 
     (new Extend\Settings)
-        ->serializeToForum('afrux-online-users-widget.maxUsers', 'afrux-online-users-widget.max_users', 'intval'),
+        ->serializeToForum('ekumanov-online-users-widget.maxUsers', 'ekumanov-online-users-widget.max_users', 'intval'),
 
     (new Extend\Filter(UserFilterer::class))
         ->addFilter(Query\OnlineGambitFilter::class),

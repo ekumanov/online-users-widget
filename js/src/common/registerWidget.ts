@@ -18,5 +18,5 @@ export default function (app) {
       placement: 'end',
       position: 1,
     })
-    .extend(app, 'afrux-online-users-widget');
+    .extend(app, 'ekumanov-online-users-widget');
 }

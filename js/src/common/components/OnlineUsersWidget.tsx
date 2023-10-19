@@ -34,7 +34,7 @@ export default class OnlineUsersWidget<T extends WidgetAttrs> extends Widget<T> 
   }
 
   title(): string | null {
-    return app.translator.trans('afrux-online-users-widget.forum.widget.title');
+    return app.translator.trans('ekumanov-online-users-widget.forum.widget.title');
   }
 
   content(): Mithril.Children {
@@ -42,13 +42,13 @@ export default class OnlineUsersWidget<T extends WidgetAttrs> extends Widget<T> 
       return <LoadingIndicator />;
     }
 
-    const max = app.forum.attribute('afrux-online-users-widget.maxUsers') || 15;
+    const max = app.forum.attribute('ekumanov-online-users-widget.maxUsers') || 15;
     const users = this.attrs.state.users;
 
     return (
       <div className="Afrux-OnlineUsersWidget-users">
         <div className="Afrux-OnlineUsersWidget-users-message">
-          {users.length === 0 ? app.translator.trans('afrux-online-users-widget.forum.widget.empty') : null}
+          {users.length === 0 ? app.translator.trans('ekumanov-online-users-widget.forum.widget.empty') : null}
         </div>
         <div className="Afrux-OnlineUsersWidget-users-list">
           {users.slice(0, max).map((user: User) => (
