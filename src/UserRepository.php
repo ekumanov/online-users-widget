@@ -46,8 +46,9 @@ class UserRepository
                 ->where('last_seen_at', '>', $time)
                 ->limit($limit + 1)
                 ->get()
-                ->filter(function ($user) {
-                    return (bool)$user->getPreference('discloseOnline');
+                ->filter(function ($user) use ($actor) {
+                    return ($actor->hasPermission('user.viewLastSeenAt') or $user->getPreference('discloseOnline'))
+                        and ($actor->id !== $user->id);
                 })
                 ->pluck('id')
                 ->toArray();
