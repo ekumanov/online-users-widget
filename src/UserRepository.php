@@ -39,15 +39,18 @@ class UserRepository
         $time = Carbon::now()->subMinutes(5);
         $limit = $this->settings->get('ekumanov-online-users-widget.max_users', 15);
 
-        return $this->cache->remember('ekumanov-online-users-widget.users', 40, function () use ($actor, $time, $limit) {
+        $canViewLastSeen = $actor->hasPermission('user.viewLastSeenAt');
+        $suffix = $canViewLastSeen ? '-permitted' : '-restricted';
+        
+        return $this->cache->remember('ekumanov-online-users-widget.users'.$suffix, 40, function () use ($actor, $time, $limit, $canViewLastSeen) {
             return User::query()
                 ->select('id', 'preferences')
                 ->whereVisibleTo($actor)
                 ->where('last_seen_at', '>', $time)
                 ->limit($limit + 1)
                 ->get()
-                ->filter(function ($user) use ($actor) {
-                    return ($actor->hasPermission('user.viewLastSeenAt') or $user->getPreference('discloseOnline'))
+                ->filter(function ($user) use ($canViewLastSeen) {
+                    return ($canViewLastSeen or $user->getPreference('discloseOnline'))
                         and ($actor->id !== $user->id);
                 })
                 ->pluck('id')
