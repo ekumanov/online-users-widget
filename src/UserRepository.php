@@ -50,8 +50,7 @@ class UserRepository
                 ->limit($limit + 1)
                 ->get()
                 ->filter(function ($user) use ($actor, $canViewLastSeen) {
-                    return ($canViewLastSeen or $user->getPreference('discloseOnline'))
-                        and ($actor->id !== $user->id);
+                    return $canViewLastSeen or $user->getPreference('discloseOnline');
                 })
                 ->pluck('id')
                 ->toArray();
