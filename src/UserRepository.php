@@ -49,7 +49,7 @@ class UserRepository
                 ->where('last_seen_at', '>', $time)
                 ->limit($limit + 1)
                 ->get()
-                ->filter(function ($user) use ($actor, $canViewLastSeen) {
+                ->filter(function ($user) use ($canViewLastSeen) {
                     return $canViewLastSeen or $user->getPreference('discloseOnline');
                 })
                 ->pluck('id')
